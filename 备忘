@@ -1,3 +1,19 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 关于CORS
 1，Angualr的跨域问题
 proxy.conf.json 各个项目的意思
@@ -18,12 +34,17 @@ changeOrigin: true, 如果是跨域，需要配置为true
 pathRewrite: 重写路径，如果不需要重写，可以不配置
 
 效果就是 /api 的请求都会被代理到 http://localhost:8080/api 
-如果在浏览器端，打开F12，可以看到请求的地址是 http://localhost:4200/api/xxx
-本质上讲，这个设置是对Angular运行的WEB容器进行的设置，和Angular没有关系，简单而言就是配置这个WEB容器，
-如果有对/Api/*的访问转发到 target设置的地址上去
+如果Angular运行在4200端口，则上面的配置导致的结果就是
+所有 http://localhost:4200/api  的请求会被转发到 http://localhost:8080/api 上面
 
-对于本地而言，这样就能解决问题了，
-但是在CodeSpace等环境而言，中间涉及好几个跳转，只要一个跳转屏蔽了，似乎就不行了，所以直接明码写明地址，不使用这个
+本质上讲，这只是Angular运行的WEB容器进行的一个反向代理设置，和Angular没有关系，
+如果有对/Api/*的访问转发到 target设置的地址上去；通过这个特性，可以解决跨域问题
+
+因为浏览器阻止JS访问其他域的资源，通过这个反代，就实现了跨域
+对于本地开发而言，这样就能解决问题了，
+但是在CodeSpace等环境而言，已经是网络环境了，中间涉及好几个跳转，只要一个跳转屏蔽了，所以直接明码写明地址，不使用这个！！
+
+https://akechi1980-curly-tribble-pj9q6r7pjxrh6vx9-4200.preview.app.github.dev/apiv1/info/version
 
 
 2,Springboot的CORS设定
@@ -55,3 +76,5 @@ public class CorsConfig {
         return new CorsFilter(source);
     }
 }
+这里的配置addAllowedOrigin是配置允许那些域名而来的请求
+如果这里配置 * 则都许可；配置特定 域名 则只有这些域名发来的请求能够有效请求

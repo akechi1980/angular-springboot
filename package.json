@@ -1,9 +1,9 @@
 {
   "name": "my-first-angular",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --host 0.0.0.0 --public-host=${CODESPACE_NAME}-4200.preview.app.github.dev",
+    "start": "ng serve --host 0.0.0.0 --configuration development",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
