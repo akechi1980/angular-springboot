@@ -21,6 +21,16 @@
       "request": "launch",
       "preLaunchTask": "npm: test",
       "url": "http://localhost:9876/debug.html"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-ApiDemoApplication<api-demo>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.exp.demo.apidemo.ApiDemoApplication",
+      "projectName": "api-demo",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
     }
   ]
 }
