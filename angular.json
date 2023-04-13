@@ -56,7 +56,13 @@
               "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
-              "namedChunks": true
+              "namedChunks": true,
+              "fileReplacements": [
+                {
+                  "replace": "ng-src/environments/environment.ts",
+                  "with": "ng-src/environments/environment.development.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
