@@ -10,5 +10,6 @@ import lombok.Setter;
 @Setter
 public class ResponseObject {
     int code;
+    String message;
     Object data;
 }

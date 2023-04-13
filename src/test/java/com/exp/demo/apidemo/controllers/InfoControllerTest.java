@@ -24,6 +24,7 @@ public class InfoControllerTest {
 
     @Autowired
     TestRestTemplate restTemplate;
+    
     @Autowired
     ObjectMapper objectMapper;
     

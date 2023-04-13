@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.exp.demo.apidemo.model.InfoModel;
-import com.exp.demo.apidemo.model.OperateResult;
+import com.exp.demo.apidemo.model.ResponseQuery;
 import com.exp.demo.apidemo.model.ResponseObject;
 
 /**
@@ -33,7 +33,7 @@ public class InfoController {
         String datetime = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date());
         InfoModel info = new InfoModel("Version 0.0.1", datetime);
 
-        return new ResponseObject(200, info);
+        return new ResponseObject(200, "OK", info);
     }
 
     /**
@@ -43,8 +43,7 @@ public class InfoController {
     @ResponseBody
     public ResponseObject getDateTime() {
         String datetime = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date());
-        OperateResult result = new OperateResult(0, datetime);
-        return new ResponseObject(200, result);
+        return new ResponseObject(200, "OK", datetime);
     }
 
 }

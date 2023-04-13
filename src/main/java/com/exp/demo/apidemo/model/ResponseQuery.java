@@ -10,9 +10,10 @@ import lombok.Setter;
 @lombok.NoArgsConstructor
 @Getter
 @Setter
-public class QueryResult {
-    int count;
+public class ResponseQuery {
+    int code;
     int page;
-    int pageSize;
-    List<?> lstResult;
+    int size;
+    int total;
+    List<?> lst;
 }
