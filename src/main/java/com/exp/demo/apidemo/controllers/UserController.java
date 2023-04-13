@@ -61,10 +61,10 @@ public class UserController {
         User existingUser = userRepository.save(user);
 
         if (existingUser != null) {
-            return new ResponseObject(200, "OK", existingUser);
+            return new ResponseObject(0, "OK", existingUser);
         }
 
-        return new ResponseObject(200, "NG", null);
+        return new ResponseObject(1, "NG", null);
 
     }
 
@@ -77,9 +77,9 @@ public class UserController {
             existingUser.setName(user.getName());
             userRepository.save(existingUser);
 
-            return new ResponseObject(200, "OK", existingUser);
+            return new ResponseObject(0, "OK", existingUser);
         }
-        return new ResponseObject(200, "NG", null);
+        return new ResponseObject(1, "NG", null);
     }
 
     @DeleteMapping("/{id}")
@@ -87,7 +87,7 @@ public class UserController {
 
         userRepository.deleteById(id);
 
-        return new ResponseObject(200, "OK", null);
+        return new ResponseObject(0, "OK", null);
     }
 
 }

@@ -71,10 +71,12 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "my-first-angular:build:production"
+              "browserTarget": "my-first-angular:build:production",
+              "proxyConfig": "ng-src/proxy.conf.json"
             },
             "development": {
-              "browserTarget": "my-first-angular:build:development"
+              "browserTarget": "my-first-angular:build:development",
+              "proxyConfig": "ng-src/proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"

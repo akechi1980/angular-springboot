@@ -55,7 +55,7 @@ public class InfoControllerTest {
         ResponseObject rest = restTemplate.getForObject("/info/datetime", ResponseObject.class);
         log.info("rest: {}", rest);
         assertNotNull(rest);
-        assertEquals(200, rest.getCode());
+        assertEquals(0, rest.getCode());
 
     }
     

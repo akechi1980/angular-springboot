@@ -1,0 +1,57 @@
+关于CORS
+1，Angualr的跨域问题
+proxy.conf.json 各个项目的意思
+{
+  "/api": {
+    "target": "http://localhost:8080",
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/api": ""
+    }
+  }
+}
+
+target: 代理的目标地址
+secure: false, 如果是https协议，需要配置为false
+changeOrigin: true, 如果是跨域，需要配置为true
+pathRewrite: 重写路径，如果不需要重写，可以不配置
+
+效果就是 /api 的请求都会被代理到 http://localhost:8080/api 
+如果在浏览器端，打开F12，可以看到请求的地址是 http://localhost:4200/api/xxx
+本质上讲，这个设置是对Angular运行的WEB容器进行的设置，和Angular没有关系，简单而言就是配置这个WEB容器，
+如果有对/Api/*的访问转发到 target设置的地址上去
+
+对于本地而言，这样就能解决问题了，
+但是在CodeSpace等环境而言，中间涉及好几个跳转，只要一个跳转屏蔽了，似乎就不行了，所以直接明码写明地址，不使用这个
+
+
+2,Springboot的CORS设定
+在Springboot中，可以通过配置文件来设定CORS的相关参数，如下：
+spring:
+  mvc:
+    cors:
+      allowed-origins: "*"
+      allowed-methods: "*"
+      allowed-headers: "*"
+      exposed-headers: "*"
+      allow-credentials: true
+      max-age: 1800
+或者代码中设定：
+@Configuration
+public class CorsConfig {
+    private CorsConfiguration buildConfig() {
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
+        corsConfiguration.addAllowedOrigin("*");
+        corsConfiguration.addAllowedHeader("*");
+        corsConfiguration.addAllowedMethod("*");
+        return corsConfiguration;
+    }
+
+    @Bean
+    public CorsFilter corsFilter() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", buildConfig());
+        return new CorsFilter(source);
+    }
+}
