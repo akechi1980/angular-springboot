@@ -33,8 +33,8 @@ public class ApiDemoApplication implements WebMvcConfigurer {
 
     private CorsConfiguration buildConfig() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
-        corsConfiguration.addAllowedOrigin("*");
-        // corsConfiguration.addAllowedOrigin("https://akechi1980-curly-tribble-pj9q6r7pjxrh6vx9-4200.preview.app.github.dev");
+        // corsConfiguration.addAllowedOrigin("*");
+        corsConfiguration.addAllowedOrigin("https://akechi1980-curly-tribble-pj9q6r7pjxrh6vx9-8080.preview.app.github.dev");
         corsConfiguration.addAllowedHeader("*");
         corsConfiguration.addAllowedMethod("*");
         return corsConfiguration;
@@ -47,11 +47,6 @@ public class ApiDemoApplication implements WebMvcConfigurer {
         return new CorsFilter(source);
     }
 
-    // @Override
-    // protected void configure(HttpSecurity http) throws Exception {
-    //     super.configure(http);
-    //     http.csrf().disable();
 
-    // }
 
 }

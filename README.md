@@ -48,6 +48,8 @@
         ],
     }
 
+    
+
 ## 编译 打包
 
 1, `ng build` 编译Angualr代码，直接部署到 src/main/resources/static 目录
@@ -68,12 +70,28 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 TODO， 上述两部一次处理
 
 ## 备考，过程记录
-20230409    已经实现了 http://localhost:8080/api/version 访问API http://localhost:8080/访问站点
 
-TODO:为了开发方便CORS设定了*，因为Angular开发时候4200端口，站点不符，但在运行期间端口一致所以可以不考虑,尝试通过MAVEN执行时候修改这个配置
+1，通过Angular的environment的配置，实现可以4200端口编辑的同时；8080端口也可以运行Springboot服务端
+    export const environment = {
+        production: false,
+        apiUrl: 'https://akechi1980-curly-tribble-pj9q6r7pjxrh6vx9-8080.preview.app.github.dev'
+    };
+
+    export const environment = {
+        production: true,
+        apiUrl: ''
+    };
+
+    apiUrl: '' 真实运行时；使用同一站点 /api/下的RESTAPI服务所以直接空 前端开发使用4200，build之后，8080执行
+
+
+2，为了开发方便CORS设定了*，
+    corsConfiguration.addAllowedOrigin("*");
+    因为Angular开发时候4200端口，站点不符，但在运行期间端口一致所以可以不考虑,尝试通过MAVEN执行时候修改这个配置
+    真实运行可以删除这个设置 或者配置当前域名端口
 
 ## TODO
 
-1,简易内存数据库特定表CRUD操作
+1,简易内存数据库特定表CRUD操作  OK
 
-2,尽量优化Angular类
+2,尽量优化Angular类 

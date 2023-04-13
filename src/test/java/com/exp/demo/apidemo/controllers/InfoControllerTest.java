@@ -52,7 +52,7 @@ public class InfoControllerTest {
     @Test
     public void testGetDateTime() {
 
-        ResponseObject rest = restTemplate.getForObject("/info/datetime", ResponseObject.class);
+        ResponseObject rest = restTemplate.getForObject("/api/info/datetime", ResponseObject.class);
         log.info("rest: {}", rest);
         assertNotNull(rest);
         assertEquals(0, rest.getCode());
