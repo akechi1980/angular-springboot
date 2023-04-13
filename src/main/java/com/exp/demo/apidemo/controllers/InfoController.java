@@ -4,6 +4,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import com.exp.demo.apidemo.model.InfoModel;
+import com.exp.demo.apidemo.model.OperateResult;
+import com.exp.demo.apidemo.model.ResponseObject;
 
 /**
  * InfoController
@@ -25,8 +28,12 @@ public class InfoController {
      */
     @GetMapping("/version")
     @ResponseBody
-    public String getVersion() {
-        return "Version 0.0.4";
+    public ResponseObject getVersion() {
+
+        String datetime = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date());
+        InfoModel info = new InfoModel("Version 0.0.1", datetime);
+
+        return new ResponseObject(0, info);
     }
 
     /**
@@ -34,9 +41,10 @@ public class InfoController {
      */
     @GetMapping("/datetime")
     @ResponseBody
-    public String getDateTime() {
+    public ResponseObject getDateTime() {
         String datetime = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date());
-        return datetime;
+        OperateResult result = new OperateResult(0, datetime);
+        return new ResponseObject(0, result);
     }
 
 }
