@@ -11,8 +11,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -59,6 +57,7 @@ public class UserControllerTest {
         log.info("==== tearDown =================");
     }
 
+    
     @Test
     public void testGetAllPersons() {
         // ResponseEntity<ResponseQuery> response = restTemplate.exchange("/users",
@@ -72,6 +71,8 @@ public class UserControllerTest {
         assertEquals(HttpStatus.OK, response.getStatusCode());
 
         ResponseQuery tResponseQuery = response.getBody();
+
+        assertNotNull(tResponseQuery);
         List<User> lst = objectMapper.convertValue(tResponseQuery.getLst(), new TypeReference<List<User>>() {
         });
 
@@ -95,6 +96,7 @@ public class UserControllerTest {
         assertEquals(HttpStatus.OK, response.getStatusCode());
 
         ResponseObject tResponseObject = response.getBody();
+        assertNotNull(tResponseObject);
         User tUser = objectMapper.convertValue(tResponseObject.getData(), new TypeReference<User>() {
         });
 
@@ -117,6 +119,7 @@ public class UserControllerTest {
         assertEquals(HttpStatus.OK, response.getStatusCode());
 
         ResponseObject tResponseObject = response.getBody();
+        assertNotNull(tResponseObject);
         User tUser = objectMapper.convertValue(tResponseObject.getData(), new TypeReference<User>() {
         });
         
@@ -144,6 +147,7 @@ public class UserControllerTest {
         assertEquals(HttpStatus.OK, response.getStatusCode());
 
         ResponseObject tResponseObject = response.getBody();
+        assertNotNull(tResponseObject);
         User tUser = objectMapper.convertValue(tResponseObject.getData(), new TypeReference<User>() {
         });
 
@@ -166,6 +170,7 @@ public class UserControllerTest {
         assertEquals(HttpStatus.OK, response.getStatusCode());
 
         ResponseObject tResponseObject = response.getBody();
+        assertNotNull(tResponseObject);
         assertEquals(1, tResponseObject.getCode());
         assertEquals("NG", tResponseObject.getMessage());
 

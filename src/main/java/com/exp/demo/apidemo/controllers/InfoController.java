@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.exp.demo.apidemo.model.InfoModel;
-import com.exp.demo.apidemo.model.ResponseQuery;
 import com.exp.demo.apidemo.model.ResponseObject;
 
 /**
