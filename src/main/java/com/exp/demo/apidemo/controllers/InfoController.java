@@ -33,7 +33,7 @@ public class InfoController {
         String datetime = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date());
         InfoModel info = new InfoModel("Version 0.0.1", datetime);
 
-        return new ResponseObject(0, info);
+        return new ResponseObject(200, info);
     }
 
     /**
@@ -44,7 +44,7 @@ public class InfoController {
     public ResponseObject getDateTime() {
         String datetime = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date());
         OperateResult result = new OperateResult(0, datetime);
-        return new ResponseObject(0, result);
+        return new ResponseObject(200, result);
     }
 
 }
