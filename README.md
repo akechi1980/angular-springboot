@@ -89,14 +89,12 @@ TODO， 上述两部一次处理
     corsConfiguration.addAllowedOrigin("*");   //因为Angular开发时候4200端口，站点不符，
     ！codespace需要把8080API端口Public出来
     ！真实部署可以使用特定域名，或者删除这个配置，相当于同站点同端口
+    
+3，简易内存数据库特定表CRUD操作  OK
 
-## TODO
+4，尽量优化Angular类  OK
 
-1,简易内存数据库特定表CRUD操作  OK
+5，追加了Tailwind CSS美化样式
 
-2,尽量优化Angular类  OK
-
-3，追加了Tailwind CSS美化样式
-
-4，追加了Springboot集成测试用例
+6，追加了Springboot集成测试用例
 
