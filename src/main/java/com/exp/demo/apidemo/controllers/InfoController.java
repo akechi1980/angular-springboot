@@ -16,7 +16,7 @@ import com.exp.demo.apidemo.model.ResponseObject;
  * @since 2023-04-13
  */
 @RestController
-@RequestMapping("/info")
+@RequestMapping("/api/info")
 public class InfoController {
 
     /**

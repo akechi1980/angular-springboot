@@ -7,10 +7,12 @@
 
 
 
-
-
-
-
+关于TomcatWEB容器的重定向
+    @RequestMapping("/error")
+    public String handleError() {
+    	return "index.html"; // 该资源位于resources/static目录下
+    }
+使用error重定向到index.html 解决单页程序问题
 
 
 

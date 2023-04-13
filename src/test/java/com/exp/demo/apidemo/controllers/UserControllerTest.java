@@ -63,7 +63,7 @@ public class UserControllerTest {
         // ResponseEntity<ResponseQuery> response = restTemplate.exchange("/users",
         // HttpMethod.GET, null, new ParameterizedTypeReference<ResponseQuery>() {});
 
-        ResponseEntity<ResponseQuery> response = restTemplate.getForEntity("/users", ResponseQuery.class);
+        ResponseEntity<ResponseQuery> response = restTemplate.getForEntity("/api/users", ResponseQuery.class);
 
         log.info("response: {}", response);
 
@@ -90,7 +90,7 @@ public class UserControllerTest {
     @Test
     public void testGetPersonById() {
         long id = userRepository.findAll().get(0).getId();
-        ResponseEntity<ResponseObject> response = restTemplate.getForEntity("/users/" + id, ResponseObject.class);
+        ResponseEntity<ResponseObject> response = restTemplate.getForEntity("/api/users/" + id, ResponseObject.class);
 
         assertNotNull(response);
         assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -113,7 +113,7 @@ public class UserControllerTest {
         User person = new User();
         person.setName("Test Person 2");
 
-        ResponseEntity<ResponseObject> response = restTemplate.postForEntity("/users", person, ResponseObject.class);
+        ResponseEntity<ResponseObject> response = restTemplate.postForEntity("/api/users", person, ResponseObject.class);
 
         assertNotNull(response);
         assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -139,9 +139,9 @@ public class UserControllerTest {
         person.setId(id);
         person.setName("Test Person 3");
 
-        restTemplate.put("/users/" + id, person);
+        restTemplate.put("/api/users/" + id, person);
 
-        ResponseEntity<ResponseObject> response = restTemplate.getForEntity("/users/" + id, ResponseObject.class);
+        ResponseEntity<ResponseObject> response = restTemplate.getForEntity("/api/users/" + id, ResponseObject.class);
 
         assertNotNull(response);
         assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -162,9 +162,9 @@ public class UserControllerTest {
     @Test
     public void testDeletePerson() {
         long id = userRepository.findAll().get(0).getId();
-        restTemplate.delete("/users/" + id);
+        restTemplate.delete("/api/users/" + id);
 
-        ResponseEntity<ResponseObject> response = restTemplate.getForEntity("/users/" + id, ResponseObject.class);
+        ResponseEntity<ResponseObject> response = restTemplate.getForEntity("/api/users/" + id, ResponseObject.class);
 
         assertNotNull(response);
         assertEquals(HttpStatus.OK, response.getStatusCode());

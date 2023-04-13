@@ -26,7 +26,7 @@ import com.exp.demo.apidemo.model.ResponseObject;
  * @since 2023-04-13
  */
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/users")
 public class UserController {
     @Autowired
     private UserRepository userRepository;

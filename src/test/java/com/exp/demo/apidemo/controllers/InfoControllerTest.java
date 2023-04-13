@@ -35,7 +35,7 @@ public class InfoControllerTest {
     @Test
     public void testGetVersion() {
 
-        ResponseObject rest = restTemplate.getForObject("/info/version", ResponseObject.class);
+        ResponseObject rest = restTemplate.getForObject("/api/info/version", ResponseObject.class);
         log.info("rest: {}", rest);
         InfoModel info = objectMapper.convertValue(rest.getData(), InfoModel.class);
         
