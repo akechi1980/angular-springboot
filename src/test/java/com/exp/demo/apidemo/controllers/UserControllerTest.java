@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 
 import com.exp.demo.apidemo.dao.UserRepository;
 import com.exp.demo.apidemo.dao.memory.User;
+import com.exp.demo.apidemo.model.ResponseObject;
 import com.exp.demo.apidemo.model.ResponseQuery;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -29,15 +30,15 @@ import lombok.extern.slf4j.Slf4j;
  * 
  */
 @Slf4j
-@SpringBootTest(webEnvironment= SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class UserControllerTest {
 
     @Autowired
     TestRestTemplate restTemplate;
-    
+
     @Autowired
     ObjectMapper objectMapper;
-    
+
     @Autowired
     private UserRepository userRepository;
 
@@ -58,70 +59,116 @@ public class UserControllerTest {
         log.info("==== tearDown =================");
     }
 
-
     @Test
     public void testGetAllPersons() {
-        // ResponseEntity<ResponseQuery> response = restTemplate.exchange("/users", HttpMethod.GET, null, new ParameterizedTypeReference<ResponseQuery>() {});
+        // ResponseEntity<ResponseQuery> response = restTemplate.exchange("/users",
+        // HttpMethod.GET, null, new ParameterizedTypeReference<ResponseQuery>() {});
 
         ResponseEntity<ResponseQuery> response = restTemplate.getForEntity("/users", ResponseQuery.class);
 
         log.info("response: {}", response);
 
-
         assertNotNull(response);
         assertEquals(HttpStatus.OK, response.getStatusCode());
 
         ResponseQuery tResponseQuery = response.getBody();
-        List<User> lst = objectMapper.convertValue(tResponseQuery.getLst(), new TypeReference<List<User>>(){});
+        List<User> lst = objectMapper.convertValue(tResponseQuery.getLst(), new TypeReference<List<User>>() {
+        });
 
         assertEquals(0, tResponseQuery.getCode());
+
         assertEquals(1, tResponseQuery.getPage());
         assertEquals(10, tResponseQuery.getSize());
-  
+
         User person = (User) lst.get(0);
         assertEquals(1, lst.size());
         assertEquals("Test Person", person.getName());
 
-        
     }
 
-    // @Test
-    // public void testGetPersonById() {
-    //     long id = personRepository.findAll().get(0).getId();
-    //     ResponseEntity<Person> response = restTemplate.getForEntity("/persons/" + id, Person.class);
-    //     assertThat(response.getStatusCode(), equalTo(HttpStatus.OK));
-    //     assertThat(response.getBody().getName(), equalTo("Test Person"));
-    // }
+    @Test
+    public void testGetPersonById() {
+        long id = userRepository.findAll().get(0).getId();
+        ResponseEntity<ResponseObject> response = restTemplate.getForEntity("/users/" + id, ResponseObject.class);
 
-    // @Test
-    // public void testCreatePerson() {
-    //     Person person = new Person();
-    //     person.setName("New Person");
-    //     person.setAge(25);
-    //     HttpEntity<Person> request = new HttpEntity<>(person);
-    //     ResponseEntity<Person> response = restTemplate.postForEntity("/persons", request, Person.class);
-    //     assertThat(response.getStatusCode(), equalTo(HttpStatus.CREATED));
-    //     assertThat(response.getBody().getId(), notNullValue());
-    // }
+        assertNotNull(response);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
 
-    // @Test
-    // public void testUpdatePerson() {
-    //     long id = personRepository.findAll().get(0).getId();
-    //     Person person = new Person();
-    //     person.setId(id);
-    //     person.setName("Updated Person");
-    //     person.setAge(35);
-    //     HttpEntity<Person> request = new HttpEntity<>(person);
-    //     ResponseEntity<Person> response = restTemplate.exchange("/persons/" + id, HttpMethod.PUT, request, Person.class);
-    //     assertThat(response.getStatusCode(), equalTo(HttpStatus.OK));
-    //     assertThat(response.getBody().getName(), equalTo("Updated Person"));
-    // }
+        ResponseObject tResponseObject = response.getBody();
+        User tUser = objectMapper.convertValue(tResponseObject.getData(), new TypeReference<User>() {
+        });
 
-    // @Test
-    // public void testDeletePerson() {
-    //     long id = personRepository.findAll().get(0).getId();
-    //     restTemplate.delete("/persons/" + id);
-    //     assertThat(personRepository.count(), equalTo(0L));
-    // }
-    
+        assertEquals(1, tUser.getId());
+        assertEquals("Test Person", tUser.getName());
+
+    }
+
+    /**
+     * 测试新增用户
+     */
+    @Test
+    public void testAddPerson() {
+        User person = new User();
+        person.setName("Test Person 2");
+
+        ResponseEntity<ResponseObject> response = restTemplate.postForEntity("/users", person, ResponseObject.class);
+
+        assertNotNull(response);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+
+        ResponseObject tResponseObject = response.getBody();
+        User tUser = objectMapper.convertValue(tResponseObject.getData(), new TypeReference<User>() {
+        });
+        
+        // 新增时，id为null 不知道ID会是多少所以不判断
+        // assertEquals(person.getId(), tUser.getId());
+        assertEquals("Test Person 2", tUser.getName());
+
+    }
+
+    /**
+     * 测试更新用户
+     */
+    @Test
+    public void testUpdatePerson() {
+        long id = userRepository.findAll().get(0).getId();
+        User person = new User();
+        person.setId(id);
+        person.setName("Test Person 3");
+
+        restTemplate.put("/users/" + id, person);
+
+        ResponseEntity<ResponseObject> response = restTemplate.getForEntity("/users/" + id, ResponseObject.class);
+
+        assertNotNull(response);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+
+        ResponseObject tResponseObject = response.getBody();
+        User tUser = objectMapper.convertValue(tResponseObject.getData(), new TypeReference<User>() {
+        });
+
+        assertEquals(id, tUser.getId());
+        assertEquals("Test Person 3", tUser.getName());
+
+    }
+
+    /**
+     * 测试删除用户
+     */
+    @Test
+    public void testDeletePerson() {
+        long id = userRepository.findAll().get(0).getId();
+        restTemplate.delete("/users/" + id);
+
+        ResponseEntity<ResponseObject> response = restTemplate.getForEntity("/users/" + id, ResponseObject.class);
+
+        assertNotNull(response);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+
+        ResponseObject tResponseObject = response.getBody();
+        assertEquals(1, tResponseObject.getCode());
+        assertEquals("NG", tResponseObject.getMessage());
+
+    }
+
 }
