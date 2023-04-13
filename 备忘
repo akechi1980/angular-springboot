@@ -78,3 +78,32 @@ public class CorsConfig {
 }
 这里的配置addAllowedOrigin是配置允许那些域名而来的请求
 如果这里配置 * 则都许可；配置特定 域名 则只有这些域名发来的请求能够有效请求
+
+
+需要的插件          
+Extension Pack for Java
+    Language Support for Java(TM) by Red Hat
+    Debugger for Java
+    Maven for Java 
+    Project Manager for Java
+    Test Runner for Java
+    IntelliCode
+
+Spring Boot Extension Pack
+    Spring Initializr Java Support
+    Spring Boot Dashboard
+    Spring Boot Tools
+
+
+环境变量	说明
+CODESPACE_NAME	代码空间的名称 例如，octocat-literate-space-parakeet-mld5
+CODESPACES	在代码空间中始终为 true
+GIT_COMMITTER_EMAIL	未来 git 提交的“作者”字段的电子邮件。
+GIT_COMMITTER_NAME	未来 git 提交的“提交者”字段的名称。
+GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN	返回 GitHub Codespaces 转发端口的域。 例如 preview.app.github.dev。
+GITHUB_API_URL	返回 API URL。 例如，https://api.github.com。
+GITHUB_GRAPHQL_URL	返回 GraphQL API URL。 例如，https://api.github.com/graphql。
+GITHUB_REPOSITORY	所有者和仓库名称。 例如，octocat/Hello-World。
+GITHUB_SERVER_URL	返回 GitHub 服务器的 URL。 例如，https://github.com。
+GITHUB_TOKEN	代表代码空间中用户的签名身份验证令牌。 您可以使用它对 GitHub API 进行经过身份验证的调用。 有关详细信息，请参阅“GitHub Codespaces 中的安全性”。
+GITHUB_USER	启动代码空间的用户的名称。 例如，octocat。

@@ -1,43 +1,79 @@
-# MyFirstAngular
+# 一个Angular + Springboot的集成研究
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.5.
+一般而言，前端Angualr开发，后端Springboot，都是运行在不同的服务器上面。比如前端 Apache，后端 直接Java或者其他Java容器。
 
-## Development server
+但是对于简单开发，我想尝试两个同时在一个容器上执行，也就是Springboot的容器上执行
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## 目录结构
 
-## Code scaffolding
+1,src : Java的代码目录
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+2,ngsrc ： Anagular的代码目录
 
-## Build
+## 开发运行方法.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+使用MSCode 配合Java扩展和Springboot扩展实现
 
-## Running unit tests
+1, `npm run start` 启动Angualr服务
+
+2, Springboot通过MSCODE界面按钮启动，Debug等
+
+配合ng serve -o参数 以及 launch.json，可以实现同时启动两个服务，并打开浏览器
+
+    {
+        "version": "0.2.0",
+        "compounds": [
+            {
+                "name": "Debug All",
+                "configurations": [
+                    "Start APIApplication",
+                    "Start Angular"
+                ]
+            }
+        ],
+        "configurations": [
+            {
+                "type": "java",
+                "name": "Start APIApplication",
+                "request": "launch",
+                "mainClass": "com.exp.springboot.api.APIApplication",
+                "projectName": "api_services"
+            },
+            {
+                "type": "node-terminal",
+                "command": "npm run start",
+                "request": "launch",
+                "name": "Start Angular",
+            },
+        ],
+    }
+
+## 编译 打包
+
+1, `ng build` 编译Angualr代码，直接部署到 src/main/resources/static 目录
+
+2, 使用Maven打包，`maven clean package` 直接打包到成果JAR
+
+TODO， 上述两部一次处理
+
+## 单元测试与结合测试
+1，Angular 测试
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
+2, Springboot 测试
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+执行 `mvn test` ，会运行 src/test/ 下所有的测试用例
 
-## Further help
+TODO， 上述两部一次处理
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## 备考，过程记录
+20230409    已经实现了 http://localhost:8080/api/version 访问API http://localhost:8080/访问站点
 
+TODO:为了开发方便CORS设定了*，因为Angular开发时候4200端口，站点不符，但在运行期间端口一致所以可以不考虑,尝试通过MAVEN执行时候修改这个配置
 
+## TODO
 
+1,简易内存数据库特定表CRUD操作
 
-环境变量	说明
-CODESPACE_NAME	代码空间的名称 例如，octocat-literate-space-parakeet-mld5
-CODESPACES	在代码空间中始终为 true
-GIT_COMMITTER_EMAIL	未来 git 提交的“作者”字段的电子邮件。
-GIT_COMMITTER_NAME	未来 git 提交的“提交者”字段的名称。
-GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN	返回 GitHub Codespaces 转发端口的域。 例如 preview.app.github.dev。
-GITHUB_API_URL	返回 API URL。 例如，https://api.github.com。
-GITHUB_GRAPHQL_URL	返回 GraphQL API URL。 例如，https://api.github.com/graphql。
-GITHUB_REPOSITORY	所有者和仓库名称。 例如，octocat/Hello-World。
-GITHUB_SERVER_URL	返回 GitHub 服务器的 URL。 例如，https://github.com。
-GITHUB_TOKEN	代表代码空间中用户的签名身份验证令牌。 您可以使用它对 GitHub API 进行经过身份验证的调用。 有关详细信息，请参阅“GitHub Codespaces 中的安全性”。
-GITHUB_USER	启动代码空间的用户的名称。 例如，octocat。
+2,尽量优化Angular类
