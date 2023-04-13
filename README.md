@@ -86,12 +86,13 @@ TODO， 上述两部一次处理
 
 
 2，为了开发方便CORS设定了*，
-    corsConfiguration.addAllowedOrigin("*");
-    因为Angular开发时候4200端口，站点不符，但在运行期间端口一致所以可以不考虑,尝试通过MAVEN执行时候修改这个配置
-    真实运行可以删除这个设置 或者配置当前域名端口
+    corsConfiguration.addAllowedOrigin("*");   //因为Angular开发时候4200端口，站点不符，
+    ！codespace需要把8080API端口Public出来
+    ！真实部署可以使用特定域名，或者删除这个配置，相当于同站点同端口
 
 ## TODO
 
 1,简易内存数据库特定表CRUD操作  OK
 
-2,尽量优化Angular类 
+2,尽量优化Angular类  OK
+
